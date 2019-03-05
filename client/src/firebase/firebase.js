@@ -1,5 +1,6 @@
 import firebase from "firebase/app";
 import app from "firebase/app";
+import "firebase/auth";
 
 const config = {
     apiKey: "AIzaSyBuuBQAK5vymdGa_NhkpXBhF3puxeRXi8Q",
@@ -13,6 +14,7 @@ const config = {
 class Firebase {
     constructor() {
         app.initializeApp(config);
+        this.auth = app.auth();
     }
 }
 
