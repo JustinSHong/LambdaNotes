@@ -3,8 +3,13 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import logo from "./logo.svg";
 import "./App.css";
 import { FirebaseContext } from "./components/Firebase";
-import Navigation from "./components/Navigation";
 import * as ROUTES from "./utils/routes";
+import Navigation from "./components/Navigation";
+import LandingPage from "./components/LandingPage";
+import SignUp from "./components/SignUp";
+import SignIn from "./components/SignIn";
+import PWForget from "./components/PWForget";
+import Home from "./components/Home";
 
 const SomeComponent = () => (
     <FirebaseContext.Consumer>
@@ -27,13 +32,10 @@ class App extends Component {
                         path={ROUTES.LANDING}
                         component={LandingPage}
                     />
-                    <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
-                    <Route path={ROUTES.SIGN_IN} component={SignInPage} />
-                    <Route
-                        path={ROUTES.PASSWORD_FORGET}
-                        component={PasswordForgetPage}
-                    />
-                    <Route path={ROUTES.HOME} component={HomePage} />
+                    <Route path={ROUTES.SIGN_UP} component={SignUp} />
+                    <Route path={ROUTES.SIGN_IN} component={SignIn} />
+                    <Route path={ROUTES.PASSWORD_FORGET} component={PWForget} />
+                    <Route path={ROUTES.HOME} component={Home} />
                 </div>
             </Router>
         );
