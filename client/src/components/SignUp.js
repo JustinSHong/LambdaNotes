@@ -30,6 +30,7 @@ const SignUpForm = props => {
             .doCreateUserWithEmailAndPassword(email, passwordOne)
             .then(authUser => {
                 setFormData({ ...formData });
+                props.history.push(ROUTES.HOME);
             })
             .catch(error => {
                 setFormData({ error });
