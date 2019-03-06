@@ -25,8 +25,7 @@ const SignUpForm = props => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        console.log(`Form Data ${formData}`);
-        console.log(`SignUpForm props ${JSON.stringify(props)}`);
+
         props.firebase
             .doCreateUserWithEmailAndPassword(email, passwordOne)
             .then(authUser => {
@@ -39,7 +38,6 @@ const SignUpForm = props => {
 
     const handleChange = e => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-        console.log(`form data ${JSON.stringify(formData)}`);
     };
 
     // simple validation
