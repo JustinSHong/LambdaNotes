@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import * as ROUTES from "../utils/routes";
+import FirebaseContext from "./Firebase/context";
 
-const SignUp = () => (
+const SignUp = props => (
     <div>
         <h1>SIGN UP HERE!</h1>
-        <SignUpForm />
+        <FirebaseContext.Consumer>
+            {firebase => <SignUpForm {...props} firebase={firebase} />}
+        </FirebaseContext.Consumer>
     </div>
 );
 
