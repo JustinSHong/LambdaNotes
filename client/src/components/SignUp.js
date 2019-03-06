@@ -1,9 +1,96 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import * as ROUTES from "../utils/routes";
 
 const SignUp = () => (
     <div>
         <h1>SIGN UP HERE!</h1>
+        <SignUpForm />
     </div>
 );
+
+const SignUpForm = props => {
+    const [formData, setFormData] = useState({
+        username,
+        email: "",
+        passwordOne: "",
+        passwordTwo: "",
+        error: null
+    });
+
+    const { username, email, passwordOne, passwordTwo, error } = formData;
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        console.log(`Form Data ${formData}`);
+        console.log(`SignUpForm props ${JSON.stringify(props)}`);
+        props.firebase
+            .doCreateUserWithEmailAndPassword(email, passwordOne)
+            .then(authUser => {
+                setFormData({ ...formData });
+            })
+            .catch(error => {
+                setFormData({ error });
+            });
+    };
+
+    const handleChange = e => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+        console.log(`form data ${JSON.stringify(formData)}`);
+    };
+
+    // simple validation
+    const isInvalid =
+        passwordOne !== passwordTwo ||
+        passwordOne === "" ||
+        email === "" ||
+        username === "";
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <input
+                name="username"
+                value={username}
+                onChange={handleChange}
+                type="text"
+                placeholder="Your name"
+            />
+            <input
+                name="email"
+                value={email}
+                onChange={handleChange}
+                type="text"
+                placeholder="Your email"
+            />
+            <input
+                name="passwordOne"
+                value={passwordOne}
+                onChange={handleChange}
+                type="password"
+                placeholder="Password"
+            />
+            <input
+                name="passwordTwo"
+                value={passwordTwo}
+                onChange={handleChange}
+                type="password"
+                placeholder="Confirm your password"
+            />
+            <button disabled={isInvalid} type="submit">
+                Sign Up
+            </button>
+
+            {error && <p>{error.message}</p>}
+        </form>
+    );
+};
+
+const SignUpLink = () => (
+    <p>
+        <Link to={ROUTES.SIGN_UP}>Click here if you don't have an account</Link>
+    </p>
+);
+
+export { SignUpForm, SignUpLink };
 
 export default SignUp;
